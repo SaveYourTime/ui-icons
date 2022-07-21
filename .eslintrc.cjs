@@ -8,6 +8,7 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'airbnb-typescript',
+    'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -31,5 +32,13 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/destructuring-assignment': 'off',
     'react/function-component-definition': ['off'],
+    'react/jsx-props-no-spreading': [
+      'error',
+      { exceptions: ['svg', 'WrappedComponent'] },
+    ],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      { selector: ['enum'], format: ['UPPER_CASE'] },
+    ],
   },
 };

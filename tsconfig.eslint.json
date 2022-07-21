@@ -1,4 +1,10 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src", "scripts", "vite.config.ts", ".eslintrc.cjs"]
+  "include": [
+    "src",
+    "scripts",
+    "vite.config.ts",
+    "svgo.config.cjs",
+    ".eslintrc.cjs"
+  ]
 }

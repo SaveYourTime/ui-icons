@@ -1,34 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { useDeferredValue, useMemo, useState } from 'react';
+import styled from 'styled-components';
+import Cards from './components/Cards';
+import * as icons from './icons';
+
+const Title = styled.h2`
+  text-align: center;
+`;
+
+const SearchInput = styled.input`
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState('');
+
+  const items = useMemo(
+    () =>
+      Object.entries(icons)
+        .filter(([name]) => name.toLowerCase().includes(search.toLowerCase()))
+        .map(([name, Icon]) => ({ name, Icon })),
+    [search],
+  );
+
+  const deferredItems = useDeferredValue(items);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <Title>Shared Icons</Title>
+      <SearchInput
+        id='search'
+        type='text'
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder='Search...'
+      />
+      <Cards icons={deferredItems} />
+    </>
+  );
 }
-
-export default App
+export default App;
